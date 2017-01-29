@@ -41,6 +41,7 @@ $( document ).ready(function() {
     //      3. Toggle visibility of all the elements within that parent with the class `details`.
     //      4. Change the text of the "view details" button to read "hide details" so the user
     //          understands they can hide the text again.
+  //function looks for clicks on view-details buttons and expands information. Also displays hide details once the details are opened.
   $('.view-details').on('click', function(event) {
     var targetElement = event.target;
     var container = targetElement.parentElement.parentElement;
@@ -64,6 +65,7 @@ $( document ).ready(function() {
     //      3. Increment the counter for whichever vote talley is affected.
     //      4. Determine the respective percentages (out of 100) for each progress bar.
     //      5. Modify the `width` attribute on each progress bar to set the updated percentage.
+  //This function allows for votes to be counted when either option is clicked. It will show the details in the display below the vote buttons.
   $('.vote').on('click', function(event) {
     var voteType = event.target;
     var voteTotal = $(voteType).attr('data-vote');
