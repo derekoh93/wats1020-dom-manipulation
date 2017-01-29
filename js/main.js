@@ -22,6 +22,14 @@ $( document ).ready(function() {
     //      2. Fill the user's first and last name into `div.user-info`.
     //      (NOTE: You do not have to perform any validation on the data as
     //          a base requirement.)
+  
+  // Function looks for clicks on login to hide the text field inputs
+  $('#login-form .btn-sm').on('click',function() {
+    // hide login-form when id is clicked
+    $('#login-form').hide();
+    $('user-name').text(userInfo.firstName + ' ' + userInfo.lastName);
+    $('.user-info').show();
+  });
 
 
     // TODO: Create a function to listen for clicks on all the "View Details"
@@ -33,6 +41,19 @@ $( document ).ready(function() {
     //      3. Toggle visibility of all the elements within that parent with the class `details`.
     //      4. Change the text of the "view details" button to read "hide details" so the user
     //          understands they can hide the text again.
+  $('.view-details').on('click', function(event) {
+    var targetElement = event.target;
+    var container = targetElement.parentElement.parentElement;
+    $(container).find('.details').each(function(index, el){
+      if($(el).is(':visible')) {
+        $(el).fadeOut('slow');
+        targetElement.innerHTML = 'View Details'; 
+      } else {
+        $(el).fadeIn('fast');
+        targetElement.innerHTML = 'Hide Details';
+      }
+    });
+  });
 
     // TODO: Create a function that listens for clicks on the voting buttons and
     // looks at the `data-vote` attribute on each button to see what was voted for,
@@ -43,5 +64,19 @@ $( document ).ready(function() {
     //      3. Increment the counter for whichever vote talley is affected.
     //      4. Determine the respective percentages (out of 100) for each progress bar.
     //      5. Modify the `width` attribute on each progress bar to set the updated percentage.
-
+  $('.vote').on('click', function(event) {
+    var voteType = event.target;
+    var voteTotal = $(voteType).attr('data-vote');
+      if (voteTotal === 'great') {
+        voteCounts.great ++;
+      } else {
+        voteCounts.greatest ++;
+      }
+    voteCounts.total = voteCounts.great + voteCounts.greatest;
+    var percentGreat = (voteCounts.great / voteCounts.total)*100;
+    var percentGreatest = (voteCounts.greatest / voteCounts.total)*100;
+    $('.great-progress').css('width' , percentGreat + '%');
+    $('.greatest-progress').css('width' , percentGreatest + '%');
+    
+  });
 });
